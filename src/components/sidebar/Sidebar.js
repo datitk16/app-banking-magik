@@ -1,18 +1,23 @@
 import React, { Component } from 'react';
 import './Sidebar.css';
-import { NavLink } from 'react-router-dom'
+import { NavLink } from 'react-router-dom';
+import { connect } from 'react-redux'
+import _ from 'lodash'
 class Sidebar extends Component {
     render() {
+        const { getUser } = this.props;
+        console.log(getUser)
+        var nameuser = <h5 class="centered">{_.get(getUser, "data.fullName", "")}</h5>
         return (
             <aside>
                 <div id="sidebar" class="nav-collapse ">
                     <ul class="sidebar-menu" id="nav-accordion">
                         <p class="centered">
-                            <NavLink to="/admin/account">
+                            <NavLink to="/account">
                                 <img src={require('./../../img/mrdat.jpg')} class="img-circle" width="80" />
                             </NavLink>
                         </p>
-                        <h5 class="centered">Mr.Đạt</h5>
+                        {nameuser}
                         <li class="mt">
                             <a href="/">
                                 <i class="fa fa-dashboard"></i>
@@ -25,8 +30,8 @@ class Sidebar extends Component {
                                 <span>Tài khoản</span>
                             </a>
                             <ul class="sub">
-                                <li><NavLink to="/admin/account">Thông tin người dùng</NavLink></li>
-                                <li><NavLink to="/admin/transaction">Thông tài khoản</NavLink></li>
+                                <li><NavLink to="/account">Thông tin người dùng</NavLink></li>
+                                <li><NavLink to="/transaction">Thông tài khoản</NavLink></li>
                                 <li><NavLink to="/">Thông tin giao dịch</NavLink></li>
                             </ul>
                         </li>
@@ -36,8 +41,8 @@ class Sidebar extends Component {
                                 <span>Tiện ích</span>
                             </a>
                             <ul class="sub">
-                                <li><NavLink to="/admin/utilities">Du lịch</NavLink></li>
-                                <li><NavLink to="/admin/utilities">Chuyển tiền từ nước ngoài</NavLink></li>
+                                <li><NavLink to="/utilities">Du lịch</NavLink></li>
+                                <li><NavLink to="/utilities">Chuyển tiền từ nước ngoài</NavLink></li>
 
                             </ul>
                         </li>
@@ -48,12 +53,12 @@ class Sidebar extends Component {
                             </a>
                             <ul class="sub">
 
-                                <li>   <NavLink to="/admin/products">Timo Mastercard</NavLink></li>
-                                <li>   <NavLink to="/admin">Bảo hiểm nhân thọ</NavLink></li>
-                                <li><NavLink to="/admin">Biểu Liberty</NavLink></li>
-                                <li><NavLink to="/admin">Past Cash</NavLink></li>
-                                <li><NavLink to="/admin">Đầu tư tích lũy </NavLink></li>
-                                <li><NavLink to="/admin">Khoản vay VPBank</NavLink></li>
+                                <li>   <NavLink to="/products">Timo Mastercard</NavLink></li>
+                                <li>   <NavLink to="/">Bảo hiểm nhân thọ</NavLink></li>
+                                <li><NavLink to="/">Biểu Liberty</NavLink></li>
+                                <li><NavLink to="/">Past Cash</NavLink></li>
+                                <li><NavLink to="/">Đầu tư tích lũy </NavLink></li>
+                                <li><NavLink to="/">Khoản vay VPBank</NavLink></li>
 
                             </ul>
                         </li>
@@ -65,12 +70,12 @@ class Sidebar extends Component {
                             </a>
                             <ul class="sub">
 
-                                <li> <NavLink to="/admin/paybill">Nhắc nợ</NavLink></li>
-                                <li> <a href="/admin">Thanh toán hóa đơn</a></li>
+                                <li> <NavLink to="/paybill">Nhắc nợ</NavLink></li>
+                                <li> <a href="/">Thanh toán hóa đơn</a></li>
                             </ul>
                         </li>
                         <li>
-                            <a href="/admin">
+                            <a href="/">
                                 <i class="fa fa-envelope"></i>
                                 <span>Mail  </span> <span className="label label-theme" style={{ marginLeft: 10 }}>2</span>
 
@@ -90,5 +95,10 @@ class Sidebar extends Component {
         );
     }
 }
+const mapStateToProps = state => {
+    return {
+        getUser: state.users
+    }
+}
 
-export default Sidebar;
+export default connect(mapStateToProps, null)(Sidebar);

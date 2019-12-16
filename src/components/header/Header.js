@@ -3,20 +3,21 @@ import { NavLink } from 'react-router-dom';
 import Sidebar from '../sidebar/Sidebar';
 import SidebatContainer from '../../containers/SidebatContainer';
 import {connect} from 'react-redux'
+import { is } from '@babel/types';
 class Header extends Component {
     constructor(props){
         super(props);
         this.state={
-            isClick:false
+            isStatus:true
         }
     }
     onClick=()=>{
-        if(this.props.getUser.code==200){
-            this.setState({
-                isClick:true
-            })
-        }
-        console.log("onclick")
+        window.localStorage.removeItem('tokenTimo');
+    }
+    isSidebar=()=>{
+          this.setState({
+              isStatus:!this.state.isStatus
+          })
     }
     render() {
         const {getUser}=this.props;
@@ -26,7 +27,7 @@ class Header extends Component {
             <header className="header black-bg">
                 
                 <div className="sidebar-toggle-box">
-                         <div className="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
+                         <div className="fa fa-bars tooltips" onClick={this.isSidebar} data-placement="right" data-original-title="Toggle Navigation"></div>
                    </div>
                 <a href="/admin" className="logo"><b>AGRI<span>BANK</span></b></a>
                 <div className="nav notify-row" id="top_menu">
@@ -118,14 +119,15 @@ class Header extends Component {
                     <ul className="nav pull-right top-menu">
 
                         <li>
-                            <NavLink className="logout" onClick={this.onClick} to="/">{this.state.isClick?'Đăng xuất':'Đăng nhập'}</NavLink>
+                            <NavLink className="logout" onClick={this.onClick} to="/">{getUser.code==200?'Đăng xuất':'Đăng nhập'}</NavLink>
 
                         </li>
                     </ul>
                 </div>
             </header>
-         <section id="container">
-         <SidebatContainer />
+         <section id="container " >
+         {this.state.isStatus==true?  <SidebatContainer />:''}
+           
          </section>  
             </section>
           
