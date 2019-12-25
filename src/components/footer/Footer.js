@@ -3,7 +3,8 @@ import React, { Component } from 'react';
 class Footer extends Component {
     render() {
         return (
-            <footer class="site-footer">
+          <section id="container" >
+            <footer class="site-footer ">
             <div class="text-center">
               <p>
                 &copy;  <strong>Dev code dao</strong>.
@@ -16,6 +17,8 @@ class Footer extends Component {
                 </a>
             </div>
           </footer>
+
+          </section>
         );
     }
 }

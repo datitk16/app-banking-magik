@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
 
 class AdminHome extends Component {
+  update=()=>{
+    this.forceUpdate()
+  }
     render() {
+   
         return (
-
-            <section id="main-content">
+         
+            <section id="main-content" render={this.update}>
             <section style={{marginTop:-30}} className="wrapper site-min-height">
               <h3><i className="fa fa-angle-right"></i> Trang chủ</h3>
               <div id="morris"> 

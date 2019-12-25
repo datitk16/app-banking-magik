@@ -1,45 +1,47 @@
 import React, { Component } from 'react';
-import './Admin.css'
-import Footer from '../footer/Footer';
-import Profile from '../profileUser/Profile';
-import Header from '../header/Header';
-import Sidebar from '../sidebar/Sidebar';
-import AdminHome from '../adminHome/AdminHome';
-import AdminAccount from '../adminAcc/AdminAccount';
-import routes from './../../routes/Routes';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import AdminUtilities from '../AdminUtilities/AdminUtilities';
-
-
+import Header from './../header/Header';
+import Footer from './../footer/Footer';
+import {BrowserRouter,Route,Switch} from 'react-router-dom';
+import AdminAccount from './../adminAcc/AdminAccount';
+import AdminHome from './../adminHome/AdminHome'
+import NotFound from '../../containers/NotFound/NotFound';
 class Admin extends Component {
-    //xử lý token khi đăng nhập liên tục và token dùng để truy cập vẫn dùng token cũ
-    render() {
-        return (
-            <Router>
-                <section id="container">
-                    <Header />
-                    <div style={{minHeight:700}}>
-                    {this.contentMenu(routes)}
-                    </div>
-                  
-                    <Footer />
-                </section>
-            </Router>
-        );
-    }
-    contentMenu = routes => {
-        var result = null;
-        if (routes.length > 0) {
-            result = routes.map((route, index) => {
-                return <Route
-                    key={index}
-                    path={route.path}
-                    exact={route.exact}
-                    component={route.main}
-                />
-            })
+    constructor(props){
+        super(props);
+        this.state={
+            path_admin:'/admin'
         }
-        return <Switch>{result}</Switch>;
+    }
+    update=()=>{
+        this.forceUpdate()
+    }
+    
+    render() {
+        const {updateApp}=this.props;     
+        return (
+            <BrowserRouter>
+            <Switch>
+               
+            <section id="container" render={this.update}>
+                <Header updateApp={this.props.updateApp} />
+                <div style={{ minHeight: 700 }}>
+                   {/* <Route path="/account" exact component={AdminAccount} /> */}
+                   <Route path="/admin" exact component={AdminAccount} />
+                   <Route path="/home" exact component={AdminHome} />
+                   <Route path="/" component={NotFound} />
+                   {/* <Route path="/admin/*"  component={NotFound} /> */}
+                  
+                </div>
+                <Footer /> 
+            </section>
+            </Switch>
+            
+            </BrowserRouter>
+       
+      
+          
+          
+        );
     }
 }
 

@@ -5,7 +5,8 @@ import NotFound from '../containers/NotFound/NotFound';
 import AdminAccContainer from '../containers/AdminAccContainer/AdminAccContainer';
 import AdminHome from '../components/adminHome/AdminHome';
 import AdminUtilities from '../components/AdminUtilities/AdminUtilities';
-
+import AdminUserAcc from '../components/adminUserAccount/AdminUserAcc'
+import TransactionContainer from '../containers/TransactionContainer/TransactionContainer';
 
 const routes=[
     {
@@ -28,6 +29,11 @@ const routes=[
         path:'/utilities',
         exact:true,
         main:()=><AdminUtilities/>
+    },
+    {
+        path:'/transaction',
+        exact:true,
+        main:()=><TransactionContainer/>
     },
     {
         path:'',

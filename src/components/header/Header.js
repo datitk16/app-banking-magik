@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink ,Redirect} from 'react-router-dom';
 import Sidebar from '../sidebar/Sidebar';
 import SidebatContainer from '../../containers/SidebatContainer';
-import {connect} from 'react-redux'
-import { is } from '@babel/types';
+import {connect} from 'react-redux';
+import Login from './../login/Login'
 class Header extends Component {
     constructor(props){
         super(props);
@@ -12,7 +12,9 @@ class Header extends Component {
         }
     }
     onClick=()=>{
+    
         window.localStorage.removeItem('tokenTimo');
+        this.props.updateApp();
     }
     isSidebar=()=>{
           this.setState({
@@ -23,6 +25,7 @@ class Header extends Component {
         const {getUser}=this.props;
         
         return (
+            
             <section id="container" >
             <header className="header black-bg">
                 
@@ -119,7 +122,7 @@ class Header extends Component {
                     <ul className="nav pull-right top-menu">
 
                         <li>
-                            <NavLink className="logout" onClick={this.onClick} to="/">{getUser.code==200?'Đăng xuất':'Đăng nhập'}</NavLink>
+                            <NavLink className="logout" onClick={this.onClick} to="/">Đăng xuất</NavLink>
 
                         </li>
                     </ul>

@@ -7,7 +7,7 @@ const accounts = (state = initialState, action) => {
      
       case Types.GET_ACCOUNT:
          state = action.account;
-        //    console.log(state)
+           console.log(state)
          return state;
 
       default: return state;

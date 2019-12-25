@@ -28,11 +28,12 @@ class Login extends Component {
         });
     }
     onSubmit = (e) => {
+        console.log(this.state)
         actUserRequest()
         console.log(this.props)
         e.preventDefault();
       
-      
+       
         const { username } = this.state;
         let password= (CryptoJS.SHA512(this.state.password)).toString(CryptoJS.enc.Hex);
         return CallApi('login', 'POST', {
@@ -44,27 +45,26 @@ class Login extends Component {
             'Content-Type': 'application/json',
             
         }).then(res => {
-            console.log(res.data)
+           
             this.setState({
                 code:!this.state.code
             })
             //truyen du lieu sang UthisserLogin/containers
             if (res.data.code == 200) {
                 console.log(res.data.code)
-                // console.log(this.props[0].history)
-                
                 localStorage.setItem('tokenTimo', res.data.data.token);
                 swal.fire({
                     icon: 'success',
                     title: 'Bạn đã đăng nhập thành công!',
                     showConfirmButton: false,
                     timer: 2000
-
+                
                 })
-                if(localStorage.getItem('tokenTimo')){
-                  
-                    this.props[0].history.push("/acccount")
-                }
+              
+    
+                    this.props.history.push('/admin')
+                   this.props.updateApp();
+                
             }
             else {
                 swal.fire({
@@ -82,13 +82,14 @@ class Login extends Component {
                     title: 'Lỗi rồi',
                     text: 'Tài khoản hoặc mật khẩu không chính xác!',
                 })
-                this.props[0].history.push("/")
+                // this.props[0].history.push("/")
             })
     }
 
     render() {
         const {code}=this.state;
         console.log(code)
+    
         
         return (
             <div id="login-page">

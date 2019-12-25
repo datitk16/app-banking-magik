@@ -13,16 +13,15 @@ class Sidebar extends Component {
                 <div id="sidebar" class="nav-collapse ">
                     <ul class="sidebar-menu" id="nav-accordion">
                         <p class="centered">
-                            <NavLink to="/account">
+                            <NavLink to="/admin">
                                 <img src={require('./../../img/mrdat.jpg')} class="img-circle" width="80" />
                             </NavLink>
                         </p>
                         {nameuser}
                         <li class="mt">
-                            <a href="/">
-                                <i class="fa fa-dashboard"></i>
-                                <span>Trang chủ</span>
-                            </a>
+                            <NavLink to="/admin/home">  <i class="fa fa-dashboard"></i>
+                                <span>Trang chủ</span></NavLink>
+                            
                         </li>
                         <li class="sub-menu">
                             <a href="javascript:;">
@@ -30,7 +29,7 @@ class Sidebar extends Component {
                                 <span>Tài khoản</span>
                             </a>
                             <ul class="sub">
-                                <li><NavLink to="/account">Thông tin người dùng</NavLink></li>
+                                <li><NavLink to="/admin/account">Thông tin người dùng</NavLink></li>
                                 <li><NavLink to="/transaction">Thông tài khoản</NavLink></li>
                                 <li><NavLink to="/">Thông tin giao dịch</NavLink></li>
                             </ul>

@@ -1,12 +1,21 @@
 import React, { Component } from 'react';
 import './AdminAccount.css';
-
+import {connect} from 'react-redux';
+import { actUserRequest } from './../../actions/index'
+import {BrowserRouter,Route,Switch} from 'react-router-dom';
+import NotFound from '../../containers/NotFound/NotFound';
 class AdminAccount extends Component {
-  getuser = async () => {
-
+  update=()=>{
+    this.forceUpdate()
   }
+  componentWillMount() {
+    if (localStorage.getItem('tokenTimo')) {
+        this.props.GetUser()
+    }
+}
   render() {
     const { getUser } = this.props;
+    console.log(getUser)
     if (getUser.data) {
       var address = <p> Địa chỉ hiện tại :{getUser.data.address.addressName},{getUser.data.address.wardName},
       {getUser.data.address.cityName}
@@ -17,8 +26,9 @@ class AdminAccount extends Component {
     
     }
     return (
-      <div className="wrapper" >
-
+      <div className="wrapper" render={this.update}>
+        
+{/* <Route path="/" component={NotFound} /> */}
         <div className="profile-card js-profile-card" style={{ marginLeft: "35%" }}>
           <div className="profile-card__img">
             <img src={require('./../../img/mrdat.jpg')} />
@@ -81,5 +91,16 @@ class AdminAccount extends Component {
     );
   }
 }
-
-export default AdminAccount;
+const mapStateToProps = state => {
+  return {
+      getUser: state.users
+  }
+}
+const mapDispatchToProps = (dispatch, props) => {
+  return {
+      GetUser: () => {
+          dispatch(actUserRequest())
+      }
+  }
+}
+export default connect(mapStateToProps,mapDispatchToProps) (AdminAccount);
